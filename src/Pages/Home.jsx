@@ -1,9 +1,27 @@
 // import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Home = () => {
+  const [inputValue, setInputValue] = useState('');
+
+  console.log(inputValue);
+
+  const onInputChange = ev => {
+    setInputValue(ev.target.value);
+  };
+
   return (
     <div>
-      <div> Go to Starred Page</div>
+      <div>{inputValue}</div>
+      <input type="text" value={inputValue} onChange={onInputChange} />
+      <button
+        type="button"
+        onClick={() => {
+          setInputValue('Osama !');
+        }}
+      >
+        Update Value
+      </button>
     </div>
   );
 };
