@@ -2,26 +2,29 @@
 import { useState } from 'react';
 
 const Home = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [searchStr, setSearchStr] = useState('');
 
-  console.log(inputValue);
+  const onSearchInputChange = ev => {
+    setSearchStr(ev.target.value);
+  };
 
-  const onInputChange = ev => {
-    setInputValue(ev.target.value);
+  const onSearch = async ev => {
+    ev.preventDefault();
+
+    const response = await fetch(
+      `https://api.tvmaze.com/search/shows?q=${searchStr}`
+    );
+    const body = await response.json();
+
+    console.log(body);
   };
 
   return (
     <div>
-      <div>{inputValue}</div>
-      <input type="text" value={inputValue} onChange={onInputChange} />
-      <button
-        type="button"
-        onClick={() => {
-          setInputValue('Osama !');
-        }}
-      >
-        Update Value
-      </button>
+      <form onSubmit={onSearch}>
+        <input type="text" value={searchStr} onChange={onSearchInputChange} />
+        <button type="Submit">Update Value</button>
+      </form>
     </div>
   );
 };
