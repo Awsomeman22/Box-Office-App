@@ -1,5 +1,11 @@
+// import { Link } from 'react-router-dom';
+
 const Starred = () => {
-  return <div>Starred Page</div>;
+  return (
+    <div>
+      <div>Starred Page</div>
+    </div>
+  );
 };
 
 export default Starred;
