@@ -1,24 +1,25 @@
 // import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { searchForShow } from '../API/tvmaze';
+import { searchForPeople, searchForShow } from '../API/tvmaze';
+import SearchForm from '../Components/SearchForm';
 
 const Home = () => {
-  const [searchStr, setSearchStr] = useState('');
   const [apiData, setApiData] = useState(null);
   const [apiDataError, setApiDataError] = useState(null);
 
-  const onSearchInputChange = ev => {
-    setSearchStr(ev.target.value);
-  };
-
-  const onSearch = async ev => {
-    ev.preventDefault();
-
+  const onSearch = async ({ q, searchOption }) => {
     try {
       setApiDataError(null);
 
-      const result = await searchForShow(searchStr);
-      setApiData(result);
+      let result;
+
+      if (searchOption == 'shows') {
+        result = await searchForShow(q);
+        setApiData(result);
+      } else {
+        result = await searchForPeople(q);
+        setApiData(result);
+      }
     } catch (error) {
       setApiDataError(error);
     }
@@ -30,21 +31,21 @@ const Home = () => {
     }
 
     if (apiData) {
-      return apiData.map(Data => (
-        <div key={Data.show.id}>{Data.show.name}</div>
-      ));
+      return apiData[0].show
+        ? apiData.map(Data => <div key={Data.show.id}>{Data.show.name}</div>)
+        : apiData.map(Data => (
+            <div key={Data.person.id}>{Data.person.name}</div>
+          ));
     }
 
     return null;
   };
 
+  // console.log(apiData);
+
   return (
     <div>
-      <form onSubmit={onSearch}>
-        <input type="text" value={searchStr} onChange={onSearchInputChange} />
-        <button type="Submit">Search</button>
-      </form>
-
+      <SearchForm onSearch={onSearch} />
       <div>{renderApiData()}</div>
     </div>
   );
