@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Starred from './Pages/Starred';
 import MainLayout from './Components/MainLayout';
-import ShowPage from './Components/ShowPage';
+import ShowPage from './Pages/ShowPage';
 
 function App() {
   return (
