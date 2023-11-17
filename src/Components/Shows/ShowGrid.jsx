@@ -1,12 +1,13 @@
 import ShowCard from './ShowCard';
 
-const ShowGrid = ({ shows }) => {
-  console.log(shows);
+const ShowGrid = ({ Shows }) => {
+  console.log(Shows);
   return (
     <div>
-      {shows.map(data => (
+      {Shows.map(data => (
         <ShowCard
           key={data.show.id}
+          id={data.show.id}
           name={data.show.name}
           image={
             data.show.image
