@@ -4,23 +4,30 @@ import { getShowById } from '../API/tvmaze';
 
 const ShowPage = () => {
   const { showId } = useParams();
-  const [showData, setShowData] = useState(null);
-  const [showError, setShowError] = useState(null);
 
-  console.log(showId);
+  const useGetShowByID = showId => {
+    const [showData, setShowData] = useState(null);
+    const [showError, setShowError] = useState(null);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const Data = await getShowById(showId);
-        setShowData(Data);
-        console.log(Data);
-      } catch (error) {
-        setShowError(error);
+    console.log(showId);
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const Data = await getShowById(showId);
+          setShowData(Data);
+          console.log(Data);
+        } catch (error) {
+          setShowError(error);
+        }
       }
-    }
-    fetchData();
-  }, [showId]);
+      fetchData();
+    }, [showId]);
+
+    return { showData, showError };
+  };
+
+  const { showData, showError } = useGetShowByID(showId);
 
   if (showData) {
     return <div>we got showData: {showData.name}</div>;
