@@ -9,8 +9,8 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <div>
+    <div>
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
             <Route element={<MainLayout />}>
@@ -36,8 +36,8 @@ function App() {
           <Route path="contact-us" element={<Contact />} /> */}
           </Routes>
         </BrowserRouter>
-      </div>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </div>
   );
 }
 
