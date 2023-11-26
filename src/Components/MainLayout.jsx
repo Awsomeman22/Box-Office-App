@@ -5,7 +5,6 @@ import AppTitle from './AppTitle';
 const MainLayout = () => {
   return (
     <div>
-      This is Shared !
       <Navs />
       <AppTitle />
       <Outlet />
